@@ -5,6 +5,7 @@ var invalid_customers = [];
 http.get('http://backend-challenge-winter-2017.herokuapp.com/customers.json', (res) => {
     res.setEncoding('utf8');
     res.on('data', (body) => {
+	console.log(body);
         splitJson(body);
     });
 });
@@ -28,14 +29,16 @@ function splitJson(body) {
 
 
 
-
 function validateCustomer(customer, validations) {
     var invalid_fields = [];
     validations.forEach((validation) => {
-        var thing = Object.keys(validation)[0];
-        var value = customer[thing];
-        if ((validation[thing])["required"] !== undefined) {
-            if ((validation[thing])["required"] === true) {
+
+        var validationType = Object.keys(validation)[0];
+        var customerValue = customer[validationType];
+	var validationReq = validation[validationType];
+
+        if (validationReq["required"] !== undefined) {
+            if (validationReq["required"] === true && (customerValue !== undefined) {
                 if (value != undefined);
                 else {
                     invalid_fields.push(thing);
